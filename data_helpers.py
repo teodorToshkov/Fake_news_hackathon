@@ -11,12 +11,6 @@ def clean_str(string):
     Original taken from https://github.com/yoonkim/CNN_sentence/blob/master/process_data.py
     """
     string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
-    string = re.sub(r"\'s", " \'s", string)
-    string = re.sub(r"\'ve", " \'ve", string)
-    string = re.sub(r"n\'t", " n\'t", string)
-    string = re.sub(r"\'re", " \'re", string)
-    string = re.sub(r"\'d", " \'d", string)
-    string = re.sub(r"\'ll", " \'ll", string)
     string = re.sub(r",", " , ", string)
     string = re.sub(r"!", " ! ", string)
     string = re.sub(r"\(", " \( ", string)
@@ -45,31 +39,31 @@ def load_data_and_labels(positive_data_file, negative_data_file):
     y = np.concatenate([positive_labels, negative_labels], 0)
     return [x_text, y]
 
-def FN_load_data_and_labels(filename):
-    '''
-
-    :param filename:
-    :return:
-    '''
-
+def FN_load_data_and_labels(filename, rows = -1):
     # examples = list(open(filename, "r", encoding="windows-1251").readlines())
     with open(filename, "r", encoding="windows-1251") as csvfile:
         examples = csv.reader(csvfile, delimiter=',', quotechar='"')
         x_title = []
         x_text = []
+        url = []
         fn_score = []
         cb_score = []
         date_time = []
+        counter = 0
         for row in examples:
+            counter += 1
+            if 0 < rows < counter:
+                break
             fn_score.append([float(row[0]) / 2.0 - 0.5, 1.5 - float(row[0]) / 2.0])
             cb_score.append([float(row[1]) / 2.0 - 0.5, 1.5 - float(row[1]) / 2.0])
             x_title.append(row[2])
+            url.append(row[3])
             date_time.append(row[4])
             x_text.append(row[5])
 
         x_text = [clean_str(sent) for sent in x_text]
         fn_score = [s for s in fn_score]
-        return [fn_score, cb_score, x_title, date_time, x_text]
+        return [fn_score, cb_score, x_title, url, date_time, x_text]
 
 def batch_iter(data, batch_size, num_epochs, shuffle=True):
     """
