@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92f253fe-83e3-434f-b10e-897a20235e51" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/rt-polaritydata/FN_Training_Set_10.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/rt-polaritydata/FN_Training_Set_30.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/rt-polaritydata/FN_Training_Set_80.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/rt-polaritydata/FN_Training_Set_999.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/rt-polaritydata/FN_Training_Set_test.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/rt-polaritydata/rt-polarity.neg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/rt-polaritydata/rt-polarity.pos" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_helpers.py" afterPath="$PROJECT_DIR$/data_helpers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eval.py" afterPath="$PROJECT_DIR$/eval.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -463,7 +454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1495359932078</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Final changes">
+      <created>1495364981312</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1495364981312</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -521,7 +519,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Final version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Final version" />
+    <MESSAGE value="Final changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
