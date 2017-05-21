@@ -15,10 +15,11 @@ import csv
 
 # Data Parameters
 tf.flags.DEFINE_string("data_file", "./data/rt-polaritydata/FN_Training_Set.csv", "Data source for the data.")
+tf.flags.DEFINE_string("data_test_file", "./data/rt-polaritydata/FN_Validation_Set_noFNscore.csv", "Data source for the data.")
 
 # Eval Parameters
 tf.flags.DEFINE_integer("batch_size", 64, "Batch Size (default: 64)")
-tf.flags.DEFINE_string("checkpoint_dir", "runs/1495359415/checkpoints/fake_news", "Checkpoint directory from training run")
+tf.flags.DEFINE_string("checkpoint_dir", "runs/1495361631/checkpoints/click_bait", "Checkpoint directory from training run")
 tf.flags.DEFINE_boolean("eval_train", True, "Evaluate on all training data")
 
 # Misc Parameters
@@ -34,13 +35,14 @@ print("")
 
 # CHANGE THIS: Load data. Load your own data here
 if FLAGS.eval_train:
-    fn_score, cb_score, x_title, url, date_time, x_content = data_helpers.FN_load_data_and_labels(FLAGS.data_file, 3000)
+    # fn_score, cb_score, x_title, url, date_time, x_content = data_helpers.FN_load_data_and_labels(FLAGS.data_file, 1000)
+    cb_score, x_title, url, date_time, x_content = data_helpers.FN_load_test_data_and_labels(FLAGS.data_test_file)
     x_raw = x_title
-    y_test = cb_score
-    y_test = np.argmax(y_test, axis=1)
+    # y_test = cb_score
+    # y_test = np.argmax(y_test, axis=1)
 else:
     x_raw = ["Баба Ванга е жива", "Баба Ванга не е жива"]
-    y_test = [1, 0]
+    # y_test = [1, 0]
 
 # Map data into vocabulary
 vocab_path = os.path.join(FLAGS.checkpoint_dir, "..", "..", "vocab")
@@ -80,13 +82,14 @@ with graph.as_default():
         for x_test_batch in batches:
             batch_predictions = sess.run(predictions, {input_x: x_test_batch, dropout_keep_prob: 1.0})
             all_predictions = np.concatenate([all_predictions, batch_predictions])
-        print(all_predictions)
+        for prediction in all_predictions:
+            print(prediction * 2 + 1)
 
 # Print accuracy if y_test is defined
-if y_test is not None:
-    correct_predictions = float(sum(all_predictions == y_test))
-    print("Total number of test examples: {}".format(len(y_test)))
-    print("Accuracy: {:g}".format(correct_predictions / float(len(y_test))))
+# if y_test is not None:
+#     correct_predictions = float(sum(all_predictions == y_test))
+#     print("Total number of test examples: {}".format(len(y_test)))
+#     print("Accuracy: {:g}".format(correct_predictions / float(len(y_test))))
 
 # Save the evaluation to a csv
 predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions))

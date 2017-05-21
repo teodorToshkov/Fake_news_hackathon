@@ -65,6 +65,25 @@ def FN_load_data_and_labels(filename, rows = -1):
         fn_score = [s for s in fn_score]
         return [fn_score, cb_score, x_title, url, date_time, x_text]
 
+def FN_load_test_data_and_labels(filename):
+    # examples = list(open(filename, "r", encoding="windows-1251").readlines())
+    with open(filename, "r", encoding="windows-1251") as csvfile:
+        examples = csv.reader(csvfile, delimiter=',', quotechar='"')
+        x_title = []
+        x_text = []
+        url = []
+        cb_score = []
+        date_time = []
+        for row in examples:
+            cb_score.append([float(row[0]) / 2.0 - 0.5, 1.5 - float(row[0]) / 2.0])
+            x_title.append(row[1])
+            url.append(row[2])
+            date_time.append(row[3])
+            x_text.append(row[4])
+
+        x_text = [clean_str(sent) for sent in x_text]
+        return [cb_score, x_title, url, date_time, x_text]
+
 def batch_iter(data, batch_size, num_epochs, shuffle=True):
     """
     Generates a batch iterator for a dataset.
